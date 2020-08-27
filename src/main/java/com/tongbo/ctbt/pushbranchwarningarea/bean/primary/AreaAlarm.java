@@ -10,7 +10,9 @@ import java.util.Date;
 @Entity
 public class AreaAlarm {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="AREAALARMSEQ")
+    @SequenceGenerator(name="AREAALARMSEQ",sequenceName="AREAALARMSEQ",allocationSize=1)
+    @Column(name = "ID", unique = true, nullable = false)
     private Integer id;
 
 //    @JoinColumn(name = "ID", referencedColumnName = "SHIPID")

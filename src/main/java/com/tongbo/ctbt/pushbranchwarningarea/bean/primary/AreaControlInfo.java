@@ -55,4 +55,5 @@ public class AreaControlInfo {
 	private String areaAlarmType;
 
 	private String validity;
+
 }

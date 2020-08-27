@@ -13,8 +13,9 @@ import java.util.Date;
 @Entity
 public class AreaAlarmRecord {
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="AREAALARMRECORDSEQ")
+    @SequenceGenerator(name="AREAALARMRECORDSEQ",sequenceName="AREAALARMRECORDSEQ",allocationSize=1)
+    @Column(name = "ID", unique = true, nullable = false)
     public Long id;
 
     /**

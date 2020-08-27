@@ -21,18 +21,18 @@ import java.util.List;
  * @author Administrator
  */
 @Component
-public class UpdatePathMapRunnableImpl implements Runnable {
-    private Logger logger = LoggerFactory.getLogger(UpdatePathMapRunnableImpl.class);
+public class AreaControlRunnableImpl implements Runnable {
+    private Logger logger = LoggerFactory.getLogger(AreaControlRunnableImpl.class);
     private AreaControlInfoService areaControlInfoService;
 
     @Autowired
-    public UpdatePathMapRunnableImpl(AreaControlInfoService areaControlInfoService) {
+    public AreaControlRunnableImpl(AreaControlInfoService areaControlInfoService) {
         this.areaControlInfoService = areaControlInfoService;
     }
 
     @Override
     public void run() {
-        logger.info("定时从数据库加载 警戒信息");
+        logger.info("定时加载警戒区域信息");
         loadAreaControl();
 
 //		logger.info("定时从数据库加载 港口信息等，用于船舶校验");
@@ -59,6 +59,7 @@ public class UpdatePathMapRunnableImpl implements Runnable {
                     for (int i = 0; i < geometry.getRings().get(0).size(); i++) {
                         Point2D.Double pp = GeometryUtils.locatechange(geometry.getRings().get(0).get(i).get(0),
                                 geometry.getRings().get(0).get(i).get(1));
+                        // System.out.print(pp.getX()+","+pp.getY()+"||");
                         if (i == 0) {
                             gp.moveTo(pp.x, pp.y);
                         } else {
@@ -76,8 +77,8 @@ public class UpdatePathMapRunnableImpl implements Runnable {
 
                 InitData.AreaControlMap.put(areaControlInfo.getAreaId(), areaControlInfo);
             }
-
-            logger.info("InitData.AreaControlMap:" + InitData.AreaControlMap.size());
+            System.out.println();
+            logger.info("定时加载警戒区域信息【结果】：InitData.AreaControlMap:" + InitData.AreaControlMap.toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();

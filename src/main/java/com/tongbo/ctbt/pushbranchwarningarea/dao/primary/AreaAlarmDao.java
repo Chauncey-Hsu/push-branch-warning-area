@@ -13,8 +13,6 @@ import java.util.List;
 @Repository
 public interface AreaAlarmDao extends JpaRepository<AreaAlarm, Integer> {
 
-    List<AreaAlarmRecord> findByShipIdAndAreaIdAndLeaveTimeIsNull(int shipid, Integer areaId);
-
     AreaAlarm findByShipIdAndAreaId(int shipId, Integer areaId);
 
     List<AreaAlarm> findByLeaveTimeIsNull();

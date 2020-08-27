@@ -1,2 +1,3 @@
 # 用于实现拆分109程序出警戒区域相关的功能
-采用RabbitMQ -》 Oracle + JPA
+采用RabbitMQ -》 双Oracle数据源 + JPA
+警戒区域报警的分区存储、

@@ -3,7 +3,7 @@ package com.tongbo.ctbt.pushbranchwarningarea.web;
 import com.tongbo.ctbt.pushbranchwarningarea.bean.primary.AreaAlarm;
 import com.tongbo.ctbt.pushbranchwarningarea.dic.InitData;
 import com.tongbo.ctbt.pushbranchwarningarea.schedule.ShipsToUserMapRunnableImpl;
-import com.tongbo.ctbt.pushbranchwarningarea.schedule.UpdatePathMapRunnableImpl;
+import com.tongbo.ctbt.pushbranchwarningarea.schedule.AreaControlRunnableImpl;
 import com.tongbo.ctbt.pushbranchwarningarea.service.AreaAlarmService;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class InitDataWeb {
     @Autowired
     ShipsToUserMapRunnableImpl shipsToUserMapRunnable;
     @Autowired
-    UpdatePathMapRunnableImpl updatePathMapRunnable;
+    AreaControlRunnableImpl updatePathMapRunnable;
 
     public void process() {
         initAlarmData();
@@ -37,8 +37,8 @@ public class InitDataWeb {
         ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(
                 4, new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(false).build());
         // 第一个参数是任务，第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间,第四个参数是时间单位
-        scheduledThreadPoolExecutor.scheduleAtFixedRate(updatePathMapRunnable, 1, 300, TimeUnit.SECONDS);
-        scheduledThreadPoolExecutor.scheduleAtFixedRate(shipsToUserMapRunnable, 2, 900, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(updatePathMapRunnable, 0, 300, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(shipsToUserMapRunnable, 1, 900, TimeUnit.SECONDS);
     }
 
     /**

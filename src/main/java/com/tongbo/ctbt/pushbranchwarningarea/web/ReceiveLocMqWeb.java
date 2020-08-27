@@ -33,7 +33,8 @@ public class ReceiveLocMqWeb {
         Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(Constant.EXCHANGE_NAME_BEIDOU_PUSH, BuiltinExchangeType.FANOUT, true);
-        String queueName = channel.queueDeclare(Constant.QUEUE_NAME_BEIDOU_PUSH, true, false, false, null).getQueue();
+        String queueName = channel.queueDeclare(Constant.QUEUE_NAME_BEIDOU_PUSH, true, false,
+                false, null).getQueue();
         System.out.println("queueName: " + queueName);
 
         channel.queueBind(queueName, Constant.EXCHANGE_NAME_BEIDOU_PUSH, Constant.ROUTING_BEIDOU_PUSH);

@@ -39,8 +39,12 @@ public class LocMqService {
     private static Gson gson = new Gson();
 
     public void handler(String message) {
-        MqMessageDo mqMessageDo = gson.fromJson(message, MqMessageDo.class);
-        saveShipAreaAlarm(mqMessageDo.getShips(), mqMessageDo.getLocation());
+        try {
+            MqMessageDo mqMessageDo = gson.fromJson(message, MqMessageDo.class);
+            saveShipAreaAlarm(mqMessageDo.getShips(), mqMessageDo.getLocation());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -84,7 +88,7 @@ public class LocMqService {
                             //不在警戒区内，结束警戒报警
                             //AreaAlarmType	1出入报警	2进入报警	3出去报警	4出入记录
                             long startTime = System.currentTimeMillis();
-                            List<AreaAlarmRecord> recordList = areaAlarmDao.findByShipIdAndAreaIdAndLeaveTimeIsNull(ship.getId(), areaId);
+                            List<AreaAlarmRecord> recordList = areaAlarmRecordDao.findByShipIdAndAreaIdAndLeavetimeIsNull(ship.getId(), areaId);
                             // 这一条查询也没有相当频繁
                             logger.info(recordList.size() + "个record，其queryNotLeavedRecordListByShipAndArea 耗时" + (System.currentTimeMillis() - startTime));
                             if (recordList != null && recordList.size() > 0) {
@@ -106,9 +110,8 @@ public class LocMqService {
                             waterwayJudgment(areaAlarm, areaControlInfo);
 
                             areaAlarmDao.save(areaAlarm);
-                            if (it.hasNext()) {
-                                it.remove();
-                            }
+                            // 已经离开区域
+                            it.remove();
                         }
                     }
                 } catch (Exception e) {
@@ -162,7 +165,7 @@ public class LocMqService {
                                 areaAlarm.setEquipmentId(ship.getEquipmentid());
                                 areaAlarm.setShipId(ship.getId());
                                 areaAlarm.setLocStatus("1");//1区域内0区域外
-                                areaAlarm.setEnterTime(now);// TODO 这个时间不正确，不应该再更新这个时间，仔细想想。实时更新这个进入时间（报警时间）
+                                areaAlarm.setEnterTime(now);
                                 if ("3".equals(areaControlInfo.getAreaAlarmType())) {
                                     //3出去报警
                                     areaAlarm.setIsVisited("0");//0无需查看 进入
@@ -187,12 +190,11 @@ public class LocMqService {
                                 }
                                 waterwayJudgment(areaAlarm, areaControlInfo);
                                 areaAlarmDao.save(areaAlarm);
-
-                                // 因为InitData.ShipAreaAlarmMap中，这个map就加载一次，所以新产生的AreaAlarm应该放入到这个map中。
-                                Map<Integer, AreaAlarm> map = new ConcurrentHashMap<Integer, AreaAlarm>();
-                                map.put(areaAlarm.getAreaId(), areaAlarm);
-                                InitData.ShipAreaAlarmMap.put(areaAlarm.getShipId(), map);
                             }
+                            // 因为InitData.ShipAreaAlarmMap中，这个map就加载一次，所以新产生的AreaAlarm应该放入到这个map中。
+                            Map<Integer, AreaAlarm> map = new ConcurrentHashMap<Integer, AreaAlarm>();
+                            map.put(areaAlarm.getAreaId(), areaAlarm);
+                            InitData.ShipAreaAlarmMap.put(areaAlarm.getShipId(), map);
                         }
                     }
                 } else if ("2".equals(areaControlInfo.getAreaType())) {

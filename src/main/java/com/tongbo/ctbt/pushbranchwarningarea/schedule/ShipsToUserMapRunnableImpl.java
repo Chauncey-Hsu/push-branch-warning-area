@@ -39,7 +39,7 @@ public class ShipsToUserMapRunnableImpl implements Runnable {
             // 554 pthyj 这个是普陀海洋渔业局的账号
             int pthyjUserId = 554;
             searchAndPutMap(pthyjUserId);
-            logger.info("pthyj普陀海洋渔业局的账号下所有船舶"+ InitData.shipsToUserMap.toString());
+            logger.info("定时加载船舶与用户关系表:【pthyj普陀海洋渔业局的账号下所有船舶】"+ InitData.shipsToUserMap.size());
 
         } catch (Exception e) {
             e.printStackTrace();

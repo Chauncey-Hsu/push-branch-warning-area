@@ -27,15 +27,18 @@ public class LocConsumerRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        // 初始化一些参数
+        initDataWeb.process();
+
         // 接收报位和处理报位的开始
         try {
+            // 等待初始化参数完成，
+            Thread.sleep(2000);
             receiveLocMqWeb.receive();
         } catch (Exception e) {
             e.printStackTrace();
             EmailUtil.sendEmail("chuanqijob@163.com", "【push-branch-warning-area】接收并处理报位数据for警戒区域", e.getMessage());
         }
 
-        // 初始化一些参数
-        initDataWeb.process();
     }
 }
