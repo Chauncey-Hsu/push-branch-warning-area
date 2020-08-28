@@ -78,7 +78,7 @@ public class AreaControlRunnableImpl implements Runnable {
                 InitData.AreaControlMap.put(areaControlInfo.getAreaId(), areaControlInfo);
             }
             System.out.println();
-            logger.info("定时加载警戒区域信息【结果】：InitData.AreaControlMap:" + InitData.AreaControlMap.toString());
+            logger.info("定时加载警戒区域信息【结果】：InitData.AreaControlMap:" + InitData.AreaControlMap.size());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             e.printStackTrace();
