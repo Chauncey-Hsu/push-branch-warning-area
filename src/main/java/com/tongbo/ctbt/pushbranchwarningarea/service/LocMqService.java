@@ -29,7 +29,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 徐传奇 v2
+ * @author 徐传奇
+ * @Version  2
  */
 @Service
 public class LocMqService {

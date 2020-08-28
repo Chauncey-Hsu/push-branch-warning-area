@@ -42,7 +42,7 @@ public class ReceiveLocMqWeb {
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
-            logger.info(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+//            logger.info(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
             locMqService.handler(message);
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
