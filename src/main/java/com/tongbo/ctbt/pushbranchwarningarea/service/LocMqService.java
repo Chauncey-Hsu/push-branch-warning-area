@@ -95,7 +95,9 @@ public class LocMqService {
                     GeneralPath gp = areaControlInfo.getGp();
                     if (gp.contains(d2[1], d2[0])) {
                         goingInArea(ship, now, areaId, areaControlInfo);
+//                        break;
                     }
+
 
                 } else if ("2".equals(areaControlInfo.getAreaType())) {
                     //警戒线，根据船舶的前一次报位 和 本次报位，形成一条直线，判断该直线 是否和 警戒线的 任何一段线条 相交
@@ -235,7 +237,11 @@ public class LocMqService {
             areaAlarmDao.save(areaAlarm);
         }
         // 因为InitData.ShipAreaAlarmMap中，这个map就加载一次，所以新产生的AreaAlarm应该放入到这个ShipAreaAlarmMap中。
-        Map<Integer, AreaAlarm> map = new ConcurrentHashMap<Integer, AreaAlarm>();
+        // 也就是说，这里只会产生一个ship对应一个区域id报警。
+        Map<Integer, AreaAlarm> map = InitData.ShipAreaAlarmMap.get(areaAlarm.getShipId());
+        if (map == null || map.size() == 0) {
+            map = new ConcurrentHashMap<Integer, AreaAlarm>();
+        }
         map.put(areaAlarm.getAreaId(), areaAlarm);
         InitData.ShipAreaAlarmMap.put(areaAlarm.getShipId(), map);
     }
