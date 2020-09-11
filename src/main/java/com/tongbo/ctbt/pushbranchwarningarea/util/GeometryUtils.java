@@ -21,32 +21,33 @@ public class GeometryUtils {
 	
 	// 测试纠偏后
 	public static void main(String[] args) {
-//		Point2D.Double lonlat = locatechange(new BigDecimal("13230637.378595"),new BigDecimal("2664822.4732951"));
-//		System.out.println(lonlat);
+		Point2D.Double lonlat = locatechange(new BigDecimal("13230637.378595"),new BigDecimal("2664822.4732951"));
+		System.out.println(lonlat.getX() +"--"+ lonlat.getY());
+		System.out.println(lonlat);
 //		System.out.println("实际经纬度：" + "118.84844444,23.273694444");
 //		System.out.println("----------------");
 //		Point2D.Double Mercator = lonLatToMercator(lonlat.getX(),lonlat.getY());
 //		System.out.println(Mercator);
 //		System.out.println("实际经纬度：" + "13230637.378595,2664822.4732951");
 
-		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(34.0D/3600)),23+(03D/60D)+(32.0D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(18.5D/3600)),23+(03D/60D)+(18.8D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(01.9D/3600)),23+(03D/60D)+(03.4D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(45.1D/3600)),23+(02D/60D)+(47.7D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(28.5D/3600)),23+(02D/60D)+(31.4D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(11.9D/3600)),23+(02D/60D)+(14.7D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(55.2D/3600)),23+(01D/60D)+(57.9D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(39.1D/3600)),23+(01D/60D)+(39.8D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(22.0D/3600)),23+(01D/60D)+(23.5D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(03.9D/3600)),23+(01D/60D)+(06.9D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(46.1D/3600)),23+(00D/60D)+(49.4D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(27.4D/3600)),23+(00D/60D)+(32.3D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(07.2D/3600)),23+(00D/60D)+(12.6D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(50.3D/3600)),22+(59D/60D)+(57.1D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(31.9D/3600)),22+(59D/60D)+(40.1D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(13.1D/3600)),22+(59D/60D)+(24.9D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(17D/60D)+(54.6D/3600)),22+(59D/60D)+(09.9D/3600D)));
-		System.out.println(String.format("%s,%s", (117D+(17D/60D)+(36.6D/3600)),22+(58D/60D)+(56.7D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(34.0D/3600)),23+(03D/60D)+(32.0D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(18.5D/3600)),23+(03D/60D)+(18.8D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(22D/60D)+(01.9D/3600)),23+(03D/60D)+(03.4D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(45.1D/3600)),23+(02D/60D)+(47.7D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(28.5D/3600)),23+(02D/60D)+(31.4D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(21D/60D)+(11.9D/3600)),23+(02D/60D)+(14.7D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(55.2D/3600)),23+(01D/60D)+(57.9D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(39.1D/3600)),23+(01D/60D)+(39.8D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(22.0D/3600)),23+(01D/60D)+(23.5D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(20D/60D)+(03.9D/3600)),23+(01D/60D)+(06.9D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(46.1D/3600)),23+(00D/60D)+(49.4D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(27.4D/3600)),23+(00D/60D)+(32.3D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(19D/60D)+(07.2D/3600)),23+(00D/60D)+(12.6D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(50.3D/3600)),22+(59D/60D)+(57.1D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(31.9D/3600)),22+(59D/60D)+(40.1D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(18D/60D)+(13.1D/3600)),22+(59D/60D)+(24.9D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(17D/60D)+(54.6D/3600)),22+(59D/60D)+(09.9D/3600D)));
+//		System.out.println(String.format("%s,%s", (117D+(17D/60D)+(36.6D/3600)),22+(58D/60D)+(56.7D/3600D)));
 
 
 

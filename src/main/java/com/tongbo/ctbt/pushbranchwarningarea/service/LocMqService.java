@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 徐传奇
- * @Version  2
+ * @Version 2
  */
 @Service
 public class LocMqService {
@@ -53,6 +53,7 @@ public class LocMqService {
 
     /**
      * 判断并处理 船舶触发警戒区域
+     *
      * @param ship
      * @param location
      */
@@ -114,8 +115,20 @@ public class LocMqService {
                             Point2D.Double pp2 = GeometryUtils.locatechange(numberList2.get(0), numberList2.get(1));
                             Line2D line2 = new Line2D.Double(pp1.x, pp1.y, pp2.x, pp2.y);
 
-                            // 判断是否相交
+                            /*
+                             判断是否相交
+                             这里有个坑：如果两个线段都变为一个点，结果就是相交。
+                             如果一艘船停止，前后两次的定位则有可能相同的。另一方面就是警戒区域的出现了两个相邻并相同的点。
+                             */
                             if (line1.intersectsLine(line2)) {
+                                // 判断 警戒区域的出现了两个相邻并相同的点，取消此次判断。
+                                boolean equAreaPoint = (line2.getX1() == line2.getX2() && line2.getY1() == line2.getY2());
+                                // 判断 报位的出现了两个相邻并相同的点，取消此次判断。
+                                boolean equLocPoint = (line1.getX1() == line1.getX2() && line1.getY1() == line1.getY2());
+                                if (equAreaPoint || equLocPoint) {
+                                    continue;
+                                }
+
                                 intersectsLineing(ship, now, areaId, areaControlInfo);
                                 break;
                             }
@@ -132,6 +145,7 @@ public class LocMqService {
 
     /**
      * 与任何一段警戒区相交，发起触发警戒线操作
+     *
      * @param ship
      * @param now
      * @param areaId
@@ -185,6 +199,7 @@ public class LocMqService {
 
     /**
      * 跑进警戒区，发起警戒操作
+     *
      * @param ship
      * @param now
      * @param areaId
